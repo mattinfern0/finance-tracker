@@ -25,5 +25,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
     path('login', financeViews.login),
-    path('signup', financeViews.signup),
+    path('users', financeViews.UserView.as_view()),
 ]

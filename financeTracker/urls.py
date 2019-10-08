@@ -16,14 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
-from finances import views as financeViews
+from finances.views.transaction_view import TransactionViewSet
+from finances.views.user_view import UserView, loginUser, logoutUser
 
 router = routers.DefaultRouter()
-router.register(r'transactions', financeViews.TransactionViewSet)
+router.register(r'transactions', TransactionViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('login', financeViews.login),
-    path('users', financeViews.UserView.as_view()),
+    path('login', loginUser),
+    path('users', UserView.as_view()),
+    path('logout', logoutUser)
 ]

@@ -123,4 +123,4 @@ STATIC_URL = '/static/'
 
 # CSRF Settings
 
-CSRF_USE_SESSIONS = True
+#CSRF_USE_SESSIONS = True

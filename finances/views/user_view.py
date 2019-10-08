@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.core.validators import MinLengthValidator, ValidationError
@@ -6,12 +6,10 @@ from django.db.utils import IntegrityError
 
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework import viewsets
-from rest_framework.permissions import AllowAny
+from rest_framework import permissions
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-
-from finances.serializers import TransactionSerializer
-from finances.models import Transaction
+from rest_framework.authentication import SessionAuthentication
 
 from rest_framework.status import (
     HTTP_200_OK,
@@ -20,55 +18,12 @@ from rest_framework.status import (
     HTTP_401_UNAUTHORIZED,
 )
 
-# Create your views here.
-class TransactionViewSet(viewsets.ModelViewSet):
-    """ 
-    Get/edit transactions
-    """
-    queryset = Transaction.objects.all()
-    serializer_class = TransactionSerializer
-
-    def get_queryset(self):
-        userId = self.request.session.get('user_id')
-
 @csrf_exempt
 @api_view(["POST"])
 @permission_classes((AllowAny,))
-def signup(request):
+def loginUser(request):
     username = request.data.get("username")
     password = request.data.get("password")
-
-    if username is None or password is None:
-        return Response (
-            {'message': 'Username and/or password is missing'}, 
-            status=HTTP_400_BAD_REQUEST
-        )
-
-    if len(username) < 8 or len(password) < 8:
-        return Response (
-            {'message': 'Invalid username and/or password'}, 
-            status=HTTP_400_BAD_REQUEST
-        )
-
-    User.objects.create_user(username=username, password=password)
-
-    return Response (
-        {'message': 'Successfully created user'},
-        status=HTTP_200_OK
-    )
-
-@csrf_exempt
-@api_view(["POST"])
-@permission_classes((AllowAny,))
-def login(request):
-    username = request.data.get("username")
-    password = request.data.get("password")
-
-    if username is None or password is None:
-        return Response(
-            {'message': 'Username and/or password is missing.'},
-            status=HTTP_400_BAD_REQUEST
-        )
 
     currentUser = authenticate(username=username, password=password)
 
@@ -78,11 +33,18 @@ def login(request):
             status=HTTP_404_NOT_FOUND
         )
     else:
+        login(request, currentUser)
         request.session['user_id'] = currentUser.id
         return Response(
             {'message': 'Successfully logged in'},
             status=HTTP_200_OK
         )
+
+@csrf_exempt
+@api_view(["GET"])
+def logoutUser(request):
+    logout(request)
+    return Response(status=HTTP_200_OK)
 
 class UserView(APIView):
     ''' 
@@ -125,6 +87,7 @@ class UserView(APIView):
             return Response(status=HTTP_401_UNAUTHORIZED)
 
         User.objects.filter(id=userId).delete()
+        logout(user)
         del request.session['user_id']
         request.session.modified = True
         return Response(status=HTTP_200_OK)

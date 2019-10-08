@@ -120,3 +120,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# CSRF Settings
+
+CSRF_USE_SESSIONS = True

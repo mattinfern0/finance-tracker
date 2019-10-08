@@ -23,5 +23,7 @@ router.register(r'transactions', financeViews.TransactionViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(router.urls))
+    path('', include(router.urls)),
+    path('login', financeViews.login),
+    path('signup', financeViews.signup),
 ]

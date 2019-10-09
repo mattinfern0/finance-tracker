@@ -5,7 +5,7 @@ from django.core.validators import MinLengthValidator, ValidationError
 from django.db.utils import IntegrityError
 
 from rest_framework.views import APIView
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework import permissions
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
@@ -18,8 +18,14 @@ from rest_framework.status import (
     HTTP_401_UNAUTHORIZED,
 )
 
+# Allow these views to bypass csrf
+class NoCSRFAuth(SessionAuthentication):
+    def enforce_csrf(self, request):
+        return
+
 @csrf_exempt
 @api_view(["POST"])
+@authentication_classes((NoCSRFAuth,))
 @permission_classes((AllowAny,))
 def loginUser(request):
     username = request.data.get("username")
@@ -50,6 +56,8 @@ class UserView(APIView):
     ''' 
     Handles creating/deleting users
     '''
+
+    authentication_classes = (NoCSRFAuth,)
 
     def post(self, request):
         username = request.data.get("username")

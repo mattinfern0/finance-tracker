@@ -20,7 +20,7 @@ from finances.views.transaction_view import TransactionViewSet
 from finances.views.user_view import UserView, loginUser, logoutUser
 
 router = routers.DefaultRouter()
-router.register(r'transactions', TransactionViewSet)
+router.register(r'transactions', TransactionViewSet, basename='transactions')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

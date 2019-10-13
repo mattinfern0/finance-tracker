@@ -1,10 +1,22 @@
 import React from 'react';
 import { LoginForm } from '../forms';
+import { connect } from 'react-redux';
 import {Redirect, Link} from 'react-router-dom';
 
-export default function LogIn() {
+function mapStateToProps(state) {
+  console.log(state);
+  return {
+    loggedIn: state.authentication.loggedIn,
+  }
+}
+
+function ConnectedLogIn(props) {
+  console.log("Props: ", props);
+  if (props.loggedIn) {
+    return <Redirect to="/" />;
+  }
   return (
-    <div class="login">
+    <div className="login">
       <h2>Log In</h2>
       <LoginForm />
       <div>
@@ -14,3 +26,6 @@ export default function LogIn() {
     </div>
   );
 }
+
+const LogIn = connect(mapStateToProps)(ConnectedLogIn)
+export default LogIn;

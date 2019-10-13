@@ -1,28 +1,25 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { userActions } from '../../redux/actions';
 
-class LoginForm extends React.Component {
+class ConnectedLoginForm extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       username: '',
       password: '',
     };
-    this.doLogin = this.doLogin.bind(this);
-    this.changeLoggedInStatus = this.changeLoggedInStatus.bind(this);
-    this.changeErrorMessage = this.changeErrorMessage.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  changeLoggedInStatus() {
-    this.setState({ loggedIn: true });
-  }
-
-  doLogin(e) {
+  handleSubmit(e) {
+    e.preventDefault();
     const credentials = {
       username: this.state.username,
       password: this.state.password,
-    };
+    }
 
-    e.preventDefault();
+    this.props.login(credentials);
   }
 
   resetForm() {
@@ -32,14 +29,10 @@ class LoginForm extends React.Component {
     });
   }
 
-  changeErrorMessage(message) {
-    this.resetForm();
-    this.setState({errorMessage: message});
-  }
-
   render() {
+
     return (
-      <form onSubmit={this.doLogin}>
+      <form onSubmit={this.handleSubmit}>
         <input
           type="text"
           value={this.state.username}
@@ -59,5 +52,11 @@ class LoginForm extends React.Component {
     );
   }
 }
+
+const mapDispatch = {
+  login: userActions.login,
+};
+
+const LoginForm = connect(null, mapDispatch)(ConnectedLoginForm);
 
 export default LoginForm;

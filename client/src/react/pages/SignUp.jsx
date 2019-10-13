@@ -4,7 +4,7 @@ import {Redirect, Link} from 'react-router-dom';
 
 export default function SignUp() {
   return (
-    <div class="signup">
+    <div className="signup">
       <h2>Sign Up</h2>
       <SignUpForm />
       <div>

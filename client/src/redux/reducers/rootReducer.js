@@ -1,15 +1,17 @@
+import { combineReducers } from 'redux';
+import { changeState } from '../../utils'
+import authReducer from './authReducer';
+
 const initialState = {
   articles: [],
   remoteArticles: [],
+  loggedIn: false,
+  errLogin: null,
+  errSignup: null,
 };
 
-// Helper function to preserve immutability of state; copy instead of change
-function changeState(currentState, changes) {
-  return Object.assign({}, currentState, changes);
-}
-
-function rootReducer(state = initialState, action) {
-  return state;
-}
+const rootReducer = combineReducers({
+  authentication: authReducer,
+});
 
 export default rootReducer;

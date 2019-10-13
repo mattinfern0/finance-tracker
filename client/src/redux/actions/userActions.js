@@ -1,18 +1,9 @@
 import { userTypes } from '../constants';
 import { apiClient } from '../../api';
+import { makeRequest } from '../../utils';
 import getHistory from 'react-router-global-history';
 
 // General structure to avoid code reuse
-async function makeRequest(requestFunc, requestArgs) {
-  let payload = { err: null, data: null };
-  try {
-    const data = await requestFunc(requestArgs);
-    payload.data = data
-  } catch (error) {
-    payload.err = error;
-  }
-  return payload;
-}
 
 export function login(credentials) {
   return (dispatch) => {

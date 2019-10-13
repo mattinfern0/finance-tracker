@@ -1,0 +1,6 @@
+const transactionTypes = {
+  SUCCESS_GET_TRANSACTIONS: 'TRANSACTION_SUCCESS_GET',
+  ERROR_GET_TRANSACTIONS: 'TRANSSACTION_ERROR_GET'
+}
+
+export default transactionTypes;

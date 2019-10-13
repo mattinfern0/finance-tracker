@@ -63,3 +63,15 @@ html, body, #root {
     border-radius: 5px;;
     background-color: rgb(242, 181, 180);
 }
+
+.main-wrapper {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.sidebar {
+    border: 1px solid black;
+    height: 100%;
+    width: 10%;
+}

@@ -60,3 +60,13 @@ export async function logout() {
 
   return await processResponse(res);
 }
+
+export async function getTransactions() {
+  const url = `${BACKEND_URL}/transactions`;
+  const res = await fetch(url, {
+    method: 'GET',
+    credentials: 'include',
+  });
+
+  return await processResponse(res);
+}

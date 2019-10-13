@@ -6,7 +6,6 @@ const PrivateRoute = ({component: Component, ...args }) => (
   <Route
     {...args} 
     render={(props) => {
-      console.log(getCookie('csrftoken'));
       if (getCookie('csrftoken')) {
         return <Component {...props} />;
       } else {

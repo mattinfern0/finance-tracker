@@ -1,6 +1,8 @@
 import React from 'react';
+import  { connect } from 'react-redux';
+import { userActions } from '../../redux/actions';
 
-class SignUpForm extends React.Component {
+class ConnectedSignUpForm extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -13,9 +15,17 @@ class SignUpForm extends React.Component {
 
   doSignUp(e) {
     e.preventDefault();
-    const username = this.state.username;
-    const password = this.state.password;
-    const confirmPassword = this.state.confirmPassword;
+    const credentials = {
+      username: this.state.username,
+      password: this.state.password,
+      confirmPassword: this.state.confirmPassword,
+    };
+
+    if (credentials.password !== credentials.confirmPassword) {
+      this.props.signupError('Passwords don\'t match');
+    } else {
+      this.props.signup(credentials);
+    }
   }
 
   render() {
@@ -47,5 +57,12 @@ class SignUpForm extends React.Component {
     );
   }
 }
+
+const mapDispatch = {
+  signup: userActions.signup,
+  signupError: userActions.signupError,
+}
+
+const SignUpForm = connect(null, mapDispatch)(ConnectedSignUpForm);
 
 export default SignUpForm;

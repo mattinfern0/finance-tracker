@@ -1,15 +1,18 @@
 import React from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter, Route} from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
-import { SignUp, LogIn, Main } from '../react/pages';
+import { ReactRouterGlobalHistory } from 'react-router-global-history';
+import { SignUp, LogIn, Main, LogOut } from '../react/pages';
 
 export default function RootRouter() {
   return (
-    <Router basename="/">
+    <BrowserRouter basename="/">
+      <ReactRouterGlobalHistory />
       <PrivateRoute exact path="/" component={Main} />
       <Route path="/login" component={LogIn} />
       <Route path="/signup" component={SignUp} />
-    </Router>
+      <Route path="/logout" component={LogOut} />
+    </BrowserRouter>
   );
 }
 

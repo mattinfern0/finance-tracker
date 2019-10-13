@@ -1,9 +1,10 @@
-/* For the ATTEMPT types, payload will be in format
-{err, data}, with err set if failed (like in Node.js middleware)
-*/
 const userTypes = {
   ATTEMPT_LOGIN: 'USER_ATTEMPT_LOGIN',
   SUCCESS_LOGIN: 'USER_SUCCESS_LOGIN',
+  ERROR_LOGIN: 'USER_ERROR_LOGIN',
+
+  SUCCESS_SIGNUP: 'USER_SUCCESS_SIGNUP',
+  ERROR_SIGNUP: 'USER_ERROR_SIGNUP',
   ATTEMPT_SIGNUP: 'USER_ATTEMPT_SIGNUP',
 
   LOGOUT: 'USER_LOGOUT'

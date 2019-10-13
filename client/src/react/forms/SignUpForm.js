@@ -30,7 +30,7 @@ class ConnectedSignUpForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.doSignUp}>
+      <form className="form-auth" onSubmit={this.doSignUp}>
         <input
           type="text"
           value={this.state.username}

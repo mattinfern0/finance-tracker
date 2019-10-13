@@ -1,0 +1,65 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+/* Accent color */
+h2 {
+    color: rgb(21, 133, 99);
+}
+
+
+h2 {
+    font-size: 20pt;
+    font-weight: bold;
+}
+
+a {
+    text-decoration: none;
+}
+
+a, a:visited {
+    color: rgb(97, 97, 203);
+}
+
+html, body, #root {
+    height: 100%;
+    box-sizing: content-box;
+}
+
+#root {
+    background-color: rgb(173, 212, 179);
+}
+
+.container-login, .container-signup {
+    position: relative;
+    display: block;
+    width: 50%;
+    top: 20%;
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    box-sizing: content-box;
+}
+
+.form-auth input {
+    display: block;
+    width: 75%;
+    margin: 10px auto 10px auto;
+    font-size: 14pt;
+    border-radius: 4px;
+    border: 1px solid grey;
+    padding: 5px;
+}
+
+.error {
+    display: block;
+    width: 50%;
+    margin: 10px auto 10px auto;
+    padding: 10px;
+    border-radius: 5px;;
+    background-color: rgb(242, 181, 180);
+}

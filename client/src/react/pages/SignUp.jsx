@@ -22,12 +22,15 @@ function ConnectedSignUp(props) {
     return <Redirect to="/" />;
   }
   return (
-    <div className="signup">
+    <div className="container-signup">
       <h2>Sign Up</h2>
       <SignUpForm />
-      <div className="error">
-        <p>{props.errSignup}</p>  
-      </div>
+      {props.errSignup && (
+        <div className="error">
+          <p>{props.errSignup}</p>  
+        </div>
+      )}
+      
       <div>
         {'Already have an account? '}
         <Link to="/login">Log In</Link>

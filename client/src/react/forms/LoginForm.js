@@ -32,7 +32,7 @@ class ConnectedLoginForm extends React.Component {
   render() {
 
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form className="form-auth" onSubmit={this.handleSubmit}>
         <input
           type="text"
           value={this.state.username}

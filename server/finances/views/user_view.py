@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from django.core.validators import MinLengthValidator, ValidationError
 from django.db.utils import IntegrityError
 
@@ -24,6 +24,7 @@ class NoCSRFAuth(SessionAuthentication):
         return
 
 @csrf_exempt
+@ensure_csrf_cookie
 @api_view(["POST"])
 @authentication_classes((NoCSRFAuth,))
 @permission_classes((AllowAny,))
@@ -32,6 +33,9 @@ def loginUser(request):
     password = request.data.get("password")
 
     currentUser = authenticate(username=username, password=password)
+
+    if request.session._session:
+        print('Already storing a session')
 
     if not currentUser:
         return Response(
@@ -50,7 +54,12 @@ def loginUser(request):
 @api_view(["GET"])
 def logoutUser(request):
     logout(request)
-    return Response(status=HTTP_200_OK)
+    res = Response(
+        {'message': 'Successfully logged out'},
+        status=HTTP_200_OK
+    )
+    res.delete_cookie('csrftoken')
+    return res
 
 class UserView(APIView):
     ''' 
@@ -71,15 +80,21 @@ class UserView(APIView):
 
         if len(username) < 8 or len(password) < 8:
             return Response (
-                {'message': 'Invalid username and/or password'}, 
+                {'message': 'Username & password must be at least 8 characters'}, 
                 status=HTTP_400_BAD_REQUEST
             )
 
         try:
             User.objects.create_user(username=username, password=password)
         except (ValidationError, IntegrityError) as error:
+            print(type(error))
+            errorMessage = str(error)
+            print(errorMessage)
+            responseMessage = errorMessage
+            if (errorMessage == 'UNIQUE constraint failed: auth_user.username'):
+                responseMessage = "That username is already taken"
             return Response (
-                {'message': str(error)},
+                {'message': responseMessage},
                 status=HTTP_400_BAD_REQUEST
             )
 

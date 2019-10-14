@@ -31,6 +31,14 @@ html, body, #root {
     background-color: rgb(173, 212, 179);
 }
 
+input {
+    margin: 10px auto 10px auto;
+    font-size: 14pt;
+    border-radius: 4px;
+    border: 1px solid grey;
+    padding: 5px;
+}
+
 .container-login, .container-signup {
     position: relative;
     display: block;
@@ -48,11 +56,6 @@ html, body, #root {
 .form-auth input {
     display: block;
     width: 75%;
-    margin: 10px auto 10px auto;
-    font-size: 14pt;
-    border-radius: 4px;
-    border: 1px solid grey;
-    padding: 5px;
 }
 
 .error {

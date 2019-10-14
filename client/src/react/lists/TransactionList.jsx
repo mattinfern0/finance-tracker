@@ -23,14 +23,9 @@ class ConnectedTransactionList extends React.Component {
       )
     });
     return (
-      <div>
-        <TotalSpendings />
-        <NewTransactionForm />
-        <ul>
+      <ul>
         {transactions}
-        </ul>
-      </div>
-      
+      </ul>    
     );
   }
 }

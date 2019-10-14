@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { transactionActions } from '../../redux/actions';
-import { TotalSpendings } from '../misc';
-import { NewTransactionForm } from '../forms';
 import TransactionElement from './TransactionElement';
+import { sortFuncs } from '../../utils';
 
 class ConnectedTransactionList extends React.Component {
   componentDidMount() {
@@ -12,7 +11,9 @@ class ConnectedTransactionList extends React.Component {
   }
 
   render(){
-    const transactions = this.props.transactions.map((t, index) => {
+    const transactions = [...this.props.transactions];
+    transactions.sort(this.props.sortFunc);
+    const viewList = transactions.map((t) => {
       return (
         <li
           className="element-transaction"
@@ -24,7 +25,7 @@ class ConnectedTransactionList extends React.Component {
     });
     return (
       <ul>
-        {transactions}
+        {viewList}
       </ul>    
     );
   }
@@ -32,6 +33,7 @@ class ConnectedTransactionList extends React.Component {
 function mapStateToProps(state) {
   return {
     transactions: state.transactions.transactions,
+    sortFunc: state.transView.sortFunc,
   }
 }
 

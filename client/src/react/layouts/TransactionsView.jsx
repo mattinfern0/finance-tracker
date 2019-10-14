@@ -1,5 +1,5 @@
 import React from 'react';
-import { TotalSpendings } from '../misc';
+import { TotalSpendings, TransactionSortControl } from '../misc';
 import { NewTransactionForm } from '../forms';
 import { TransactionList } from '../lists';
 
@@ -7,7 +7,10 @@ function TransactionsView(){
   return (
     <section className="container-transactions">
       <TotalSpendings />
-      <NewTransactionForm />
+      <span>
+        <NewTransactionForm />
+        <TransactionSortControl />
+      </span>
       <TransactionList />
     </section>
   )

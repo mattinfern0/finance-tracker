@@ -1,3 +1,6 @@
+import * as sortFuncs from './transactionSortFuncs';
+export {sortFuncs}
+
 export function changeState(currentState, changes) {
   return Object.assign({}, currentState, changes);
 }

@@ -7,7 +7,12 @@ function ConnectedTotalSpendings(props) {
   }, 0);
 
   return (
-    <h3>Total Spendings: ${total.toFixed(2)}</h3>
+    <div>
+      <h3>Total Spendings: </h3>
+      <span className="transaction-total">
+        ${total.toFixed(2)}
+      </span>
+    </div>
   );
 }
 

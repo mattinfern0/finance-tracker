@@ -24,13 +24,13 @@ class ConnectedTransactionElement extends React.Component {
         onMouseEnter={() => this.setState({showButtons: true})}
         onMouseLeave={() => this.setState({showButtons: false})}
       >
-        <span>
+        <span className="transaction-amount">
           ${transaction.amount.toFixed(2)}
         </span>
-        <span>
+        <span className="transaction-title">
           {transaction.title}
         </span>
-        <span>
+        <span className="transaction-date align-right">
           {transaction.date.format('M/D/YYYY')}
         </span>
         {showButtons && (

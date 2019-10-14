@@ -16,3 +16,16 @@ export function getTransactions(){
   }
 }
 
+export function createTransaction(newTransaction) {
+  return (dispatch) => {
+    return makeRequest(apiClient.createTransaction, newTransaction)
+      .then((result) => {
+        if (result.err) {
+          alert('Error while creating your transaction');
+          dispatch({type: transactionTypes.ERROR_CREATE_TRANSACTION, payload: result.err});
+        } else {
+          dispatch({type: transactionTypes.SUCCESS_CREATE_TRANSATCION, payload: result.data});
+        }
+      })
+  }
+}

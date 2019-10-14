@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { transactionActions } from '../../redux/actions';
+import { TotalSpendings } from '../misc';
+import { NewTransactionForm } from '../forms';
 
 function TransactionElement(props) {
   const transaction = props.transaction;
@@ -13,7 +15,7 @@ function TransactionElement(props) {
         {transaction.title}
       </span>
       <span>
-        {transaction.date}
+        {transaction.date.format('M/D/YYYY')}
       </span>
     </div>
   )
@@ -34,9 +36,14 @@ class ConnectedTransactionList extends React.Component {
       )
     });
     return (
-      <ul>
+      <div>
+        <TotalSpendings />
+        <NewTransactionForm />
+        <ul>
         {transactions}
-      </ul>
+        </ul>
+      </div>
+      
     );
   }
 }

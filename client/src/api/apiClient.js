@@ -1,5 +1,6 @@
 import store from '../redux/store'; // Need the dispatch method from here
 import { userActions } from '../redux/actions'
+import { getCookie } from '../utils';
 
 
 const BACKEND_URL = 'http://localhost:8000' // Change to process.env later
@@ -26,7 +27,7 @@ async function processResponse(res) {
 }
 
 export async function login(credentials) {
-  const url = `${BACKEND_URL}/login`;
+  const url = `${BACKEND_URL}/login/`;
   const res = await fetch(url, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
@@ -40,7 +41,7 @@ export async function login(credentials) {
 }
 
 export async function signup(credentials) {
-  const url = `${BACKEND_URL}/users`;
+  const url = `${BACKEND_URL}/users/`;
   const res = await fetch(url, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
@@ -52,7 +53,7 @@ export async function signup(credentials) {
 }
 
 export async function logout() {
-  const url = `${BACKEND_URL}/logout`;
+  const url = `${BACKEND_URL}/logout/`;
   const res = await fetch(url, {
     method: 'GET',
     credentials: 'include',
@@ -62,10 +63,25 @@ export async function logout() {
 }
 
 export async function getTransactions() {
-  const url = `${BACKEND_URL}/transactions`;
+  const url = `${BACKEND_URL}/transactions/`;
   const res = await fetch(url, {
     method: 'GET',
     credentials: 'include',
+  });
+
+  return await processResponse(res);
+}
+
+export async function createTransaction(newTransaction) {
+  const url = `${BACKEND_URL}/transactions/`;
+  const res = await fetch(url, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCookie('csrftoken'),
+    },
+    body: JSON.stringify(newTransaction),
   });
 
   return await processResponse(res);

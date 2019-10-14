@@ -29,6 +29,7 @@ export async function makeRequest(requestFunc, requestArgs) {
     const data = await requestFunc(requestArgs);
     payload.data = data.data
   } catch (error) {
+    console.log(error);
     payload.err = error;
   }
   return payload;

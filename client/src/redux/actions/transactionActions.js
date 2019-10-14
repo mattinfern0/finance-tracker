@@ -29,3 +29,17 @@ export function createTransaction(newTransaction) {
       })
   }
 }
+
+export function deleteTransaction(transactionId) {
+  return (dispatch) => {
+    return makeRequest(apiClient.deleteTransaction, transactionId)
+      .then((result) => {
+        if (result.err) {
+          alert('Error while deleting this transaction');
+          dispatch({type: transactionTypes.ERROR_DELETE_TRANSACTION, payload: result.err});
+        } else {
+          dispatch({type: transactionTypes.SUCCESS_DELETE_TRANSACTION, payload: transactionId});
+        }
+      });
+  }
+}

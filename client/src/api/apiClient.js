@@ -5,20 +5,31 @@ import { getCookie } from '../utils';
 
 const BACKEND_URL = 'http://localhost:8000' // Change to process.env later
 
+async function parseBody(res) {
+  const text = await res.text();
+  let data = null;
+
+  // Check if body is not empty before parsing
+  if (text && text.length > 0) {
+    data = JSON.parse(text);
+  }
+  return data;
+}
+
 async function processResponse(res) {
-  const data = await res.json();
   console.log('Response: ', res);
+  const data = await parseBody(res);
   console.log('Data: ', data);
   if (!res.ok) {
     if (res.status === 401) {
       // Logout if unauthorized
       userActions.logout()(store.dispatch);
     }
+    const message = (data.message ? data.message : null)
     const errorObject = { 
       status: res.status,
-      message: data.message,
+      message,
     };
-
     throw errorObject;
   }
 
@@ -82,6 +93,19 @@ export async function createTransaction(newTransaction) {
       'X-CSRFToken': getCookie('csrftoken'),
     },
     body: JSON.stringify(newTransaction),
+  });
+
+  return await processResponse(res);
+}
+
+export async function deleteTransaction(transactionId) {
+  const url = `${BACKEND_URL}/transactions/${transactionId}/`;
+  const res = await fetch(url, {
+    method: 'DELETE',
+    credentials: 'include',
+    headers: {
+      'X-CSRFToken': getCookie('csrftoken'),
+    },
   });
 
   return await processResponse(res);

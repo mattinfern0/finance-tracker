@@ -7,7 +7,7 @@ function ConnectedTotalSpendings(props) {
   }, 0);
 
   return (
-    <h3>Total Spendings: {total}</h3>
+    <h3>Total Spendings: ${total.toFixed(2)}</h3>
   );
 }
 

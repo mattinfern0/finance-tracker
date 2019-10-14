@@ -3,23 +3,7 @@ import { connect } from 'react-redux';
 import { transactionActions } from '../../redux/actions';
 import { TotalSpendings } from '../misc';
 import { NewTransactionForm } from '../forms';
-
-function TransactionElement(props) {
-  const transaction = props.transaction;
-  return (
-    <div>
-      <span>
-        ${transaction.amount}
-      </span>
-      <span>
-        {transaction.title}
-      </span>
-      <span>
-        {transaction.date.format('M/D/YYYY')}
-      </span>
-    </div>
-  )
-}
+import TransactionElement from './TransactionElement';
 
 class ConnectedTransactionList extends React.Component {
   componentDidMount() {
@@ -30,7 +14,10 @@ class ConnectedTransactionList extends React.Component {
   render(){
     const transactions = this.props.transactions.map((t, index) => {
       return (
-        <li key={index}>
+        <li
+          className="element-transaction"
+          key={t.id}
+        >
           <TransactionElement transaction={t}/>
         </li>
       )

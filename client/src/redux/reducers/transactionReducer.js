@@ -15,6 +15,21 @@ function formatTransaction(transaction) {
   return transCopy;;
 }
 
+function deleteById(transactionList, targetId) {
+  let targetIndex = null;
+  for (let i = 0; i < transactionList.length; i++) {
+    if (transactionList[i].id === targetId) {
+      targetIndex = i;
+      break;
+    }
+  }
+
+  // Remove by filterting to preserve immmutability
+  return transactionList.filter((val, index) => {
+    return index !== targetIndex;
+  })
+}
+
 export default function transactionReducer(state=initialState, action){
   switch (action.type) {
     case transactionTypes.SUCCESS_GET_TRANSACTIONS:
@@ -31,6 +46,11 @@ export default function transactionReducer(state=initialState, action){
       const newTrans = formatTransaction(action.payload);
       return changeState(state, {
         transactions: state.transactions.concat([newTrans]),
+      });
+
+    case transactionTypes.SUCCESS_DELETE_TRANSACTION:
+      return changeState(state, {
+        transactions: deleteById(state.transactions, action.payload),
       });
 
     default:

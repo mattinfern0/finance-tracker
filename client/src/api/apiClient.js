@@ -27,7 +27,7 @@ async function processResponse(res) {
 }
 
 export async function login(credentials) {
-  const url = `${BACKEND_URL}/login/`;
+  const url = `${BACKEND_URL}/login`;
   const res = await fetch(url, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
@@ -41,7 +41,7 @@ export async function login(credentials) {
 }
 
 export async function signup(credentials) {
-  const url = `${BACKEND_URL}/users/`;
+  const url = `${BACKEND_URL}/users`;
   const res = await fetch(url, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
@@ -53,7 +53,7 @@ export async function signup(credentials) {
 }
 
 export async function logout() {
-  const url = `${BACKEND_URL}/logout/`;
+  const url = `${BACKEND_URL}/logout`;
   const res = await fetch(url, {
     method: 'GET',
     credentials: 'include',

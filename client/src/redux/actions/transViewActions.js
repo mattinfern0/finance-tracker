@@ -5,3 +5,15 @@ export function changeSortMethod(sortFunc) {
     dispatch({type: transViewTypes.CHANGE_SORT_METHOD, payload: sortFunc});
   }
 }
+
+export function editingOn() {
+  return (dispatch) => {
+    dispatch({type: transViewTypes.EDITING_ON});
+  }
+}
+
+export function editingOff() {
+  return (dispatch) => {
+    dispatch({type: transViewTypes.EDITING_OFF});
+  }
+}

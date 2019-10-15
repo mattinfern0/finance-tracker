@@ -3,32 +3,33 @@ import { connect } from 'react-redux';
 import { transactionActions } from '../../redux/actions';
 import moment from 'moment';
 
-class ConnectedNewTransactionForm extends React.Component {
+class ConnectedEditTransactionForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: '',
-      amount: '',
-      date: ''
+      title: props.initialTransInfo.title,
+      amount: props.initialTransInfo.amount,
+      date: props.initialTransInfo.date.format('YYYY-MM-DD'),
     }
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const newTransaction = {
+    const editedTransaction = {
+      id: this.props.initialTransInfo.id,
       title: this.state.title,
       amount: parseFloat(parseFloat(this.state.amount).toFixed(2)),
       date: moment(this.state.date).format('YYYY-MM-DD'),
     }
-    console.log('New transaction: ', newTransaction);
-    if (newTransaction.title.length !== 0 
-      && newTransaction.amount.length !== 0 
-      && newTransaction.date.length !== 0
+    if (
+      editedTransaction.title !== this.props.initialTransInfo.title
+      || editedTransaction.amount !== this.props.initialTransInfo.amount
+      || editedTransaction.date !== this.props.initialTransInfo.date.format("YYYY-MM-DD")
     ) {
-      this.props.createTransaction(newTransaction);
-      this.resetForm();
+      this.props.editTransaction(editedTransaction);
     }
+    this.props.revertFunc();
   }
 
   resetForm() {
@@ -53,6 +54,7 @@ class ConnectedNewTransactionForm extends React.Component {
           type="number"
           step="0.01"
           min="0"
+          
           name="amount"
           value={this.state.amount}
           onChange={(e) => this.setState({amount: e.target.value})}
@@ -67,18 +69,17 @@ class ConnectedNewTransactionForm extends React.Component {
         />
         <input
           type="submit"
-          value="Add Transaction"
+          value="Save"
         />
-
       </form>
     );
   }
 }
 
 const mapDispatch = {
-  createTransaction: transactionActions.createTransaction,
+  editTransaction: transactionActions.editTransaction,
 }
 
-const NewTransactionForm = connect(null, mapDispatch)(ConnectedNewTransactionForm);
+const EditTransactionForm = connect(null, mapDispatch)(ConnectedEditTransactionForm);
 
-export default NewTransactionForm;
+export default EditTransactionForm;

@@ -24,10 +24,32 @@ function deleteById(transactionList, targetId) {
     }
   }
 
-  // Remove by filterting to preserve immmutability
-  return transactionList.filter((val, index) => {
-    return index !== targetIndex;
-  })
+  if (targetIndex !== null) {
+    // Remove by filterting to preserve immmutability
+    return transactionList.filter((val, index) => {
+      return index !== targetIndex;
+    })
+  } else {
+    return transactionList;
+  }
+}
+
+function editById(transactionList, targetId, newTransaction) {
+  let targetIndex = null;
+  for (let i = 0; i < transactionList.length; i++) {
+    if (transactionList[i].id === targetId) {
+      targetIndex = i;
+      break;
+    }
+  }
+
+  if (targetIndex === null) {
+    return transactionList;
+  }
+
+  const listCopy = [...transactionList];
+  listCopy[targetIndex] = newTransaction;
+  return listCopy;
 }
 
 export default function transactionReducer(state=initialState, action){
@@ -52,6 +74,13 @@ export default function transactionReducer(state=initialState, action){
       return changeState(state, {
         transactions: deleteById(state.transactions, action.payload),
       });
+
+    case transactionTypes.SUCCESS_EDIT_TRANSACTION:
+      const targetId = action.payload.id;
+      const editedTransaction = formatTransaction(action.payload);
+      return changeState(state, {
+        transactions: editById(state.transactions, targetId, editedTransaction),
+      })
 
     default:
       return state;

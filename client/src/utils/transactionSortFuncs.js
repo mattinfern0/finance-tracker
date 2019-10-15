@@ -1,4 +1,3 @@
-import moment from 'moment';
 
 // Assumes first & second are both moment() objects
 export function byOldestDate(first, second) {

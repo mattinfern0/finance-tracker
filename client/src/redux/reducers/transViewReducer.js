@@ -14,6 +14,16 @@ export default function transViewReducer(state=initialState, action) {
         sortFunc: action.payload,
       })
 
+    case transViewTypes.EDITING_ON:
+      return changeState(state, {
+        editing: true
+      });
+
+    case transViewTypes.EDITING_OFF:
+      return changeState(state, {
+        editing: false
+      })
+
     default:
       return state;
   }

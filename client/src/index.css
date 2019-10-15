@@ -34,11 +34,15 @@ html, body, #root {
 }
 
 input {
-    margin: 10px auto 10px auto;
     font-size: 14pt;
     border-radius: 4px;
     border: 1px solid grey;
     padding: 5px;
+}
+
+.form-auth input {
+    margin: 10px auto 10px auto;
+    
 }
 
 .align-right {
@@ -97,23 +101,46 @@ input {
 }
 
 .container-transactions li {
-    height: 5%;
-    padding: 10px;
+    height: 7%;
+    box-sizing: border-box;
 }
 
 .container-transactions li div {
     height: 100%;
+    padding: 5px;
+    border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
+}
+
+.container-transactions li div:hover {
+    background-color: lightgrey;
+}
+
+.transaction-amount, .transaction-title, .transaction-date {
+    display: inline-block;
 }
 
 .transaction-amount {
-    display: inline-block;
     font-size: 1.1em;
     font-weight: bold;
-    margin-right: 3%;
-    width: 4em;
+    margin-right: 5px;
+    width: 10%;
+}
+
+.transaction-title {
+    width: 60%;
+}
+
+.transaction-date {
+    width: 10%;
 }
 
 .transaction-total {
     font-size: 100pt;
     font-weight: bold;
+}
+
+.form-new-transaction {
+    display: inline-block;
+    margin-right: 3%;
 }

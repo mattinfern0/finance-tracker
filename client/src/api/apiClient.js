@@ -110,3 +110,18 @@ export async function deleteTransaction(transactionId) {
 
   return await processResponse(res);
 }
+
+export async function editTransaction(editedTransaction) {
+  const url = `${BACKEND_URL}/transactions/${editedTransaction.id}/`;
+  const res = await fetch(url, {
+    method: 'PUT',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCookie('csrftoken'),
+    },
+    body: JSON.stringify(editedTransaction),
+  });
+
+  return await processResponse(res);
+}

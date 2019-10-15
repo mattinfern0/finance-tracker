@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { transactionActions } from '../../redux/actions';
 import TransactionElement from './TransactionElement';
-import { sortFuncs } from '../../utils';
 
 class ConnectedTransactionList extends React.Component {
   componentDidMount() {

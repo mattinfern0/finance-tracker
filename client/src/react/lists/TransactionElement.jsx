@@ -1,14 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { transactionActions } from '../../redux/actions';
+import { transactionActions, transViewActions } from '../../redux/actions';
+import { EditTransaction } from '../forms'
 
 class ConnectedTransactionElement extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       showButtons: false,
+      showEditForm: false,
     }
+    this.handleEdit = this.handleEdit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.editRevertFunc = this.editRevertFunc.bind(this);
+  }
+
+  handleEdit(){
+    this.setState({showEditForm: true});
+    this.props.editingOn();
   }
 
   handleDelete(){
@@ -16,9 +25,26 @@ class ConnectedTransactionElement extends React.Component {
     this.props.deleteTransaction(this.props.transaction.id);
   }
 
+  editRevertFunc(){
+    this.setState({showEditForm: false});
+    this.props.editingOff();
+  }
+
   render() {
     const transaction = this.props.transaction;
-    const showButtons = this.state.showButtons;
+    const showButtons = this.state.showButtons && !this.props.isEditing;
+
+    if (this.state.showEditForm) {
+      return (
+        <div>
+          <EditTransaction 
+            initialTransInfo={transaction}
+            revertFunc={this.editRevertFunc}
+          />
+        </div>
+      )
+    }
+
     return (
       <div
         onMouseEnter={() => this.setState({showButtons: true})}
@@ -30,7 +56,7 @@ class ConnectedTransactionElement extends React.Component {
         <span className="transaction-title">
           {transaction.title}
         </span>
-        <span className="transaction-date align-right">
+        <span className="transaction-date">
           {transaction.date.format('M/D/YYYY')}
         </span>
         {showButtons && (
@@ -38,6 +64,7 @@ class ConnectedTransactionElement extends React.Component {
             <button 
               type="button"
               className="button-edit"
+              onClick={this.handleEdit}
             >
               Edit
             </button>
@@ -55,10 +82,18 @@ class ConnectedTransactionElement extends React.Component {
   }
 }
 
-const mapToDispatch = {
-  deleteTransaction: transactionActions.deleteTransaction,
+function mapState(state) {
+  return {
+    isEditing: state.transView.editing,
+  }
 }
 
-const TransactionElement = connect(null, mapToDispatch)(ConnectedTransactionElement);
+const mapToDispatch = {
+  deleteTransaction: transactionActions.deleteTransaction,
+  editingOn: transViewActions.editingOn,
+  editingOff: transViewActions.editingOff,
+}
+
+const TransactionElement = connect(mapState, mapToDispatch)(ConnectedTransactionElement);
 
 export default TransactionElement;

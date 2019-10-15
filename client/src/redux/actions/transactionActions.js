@@ -43,3 +43,17 @@ export function deleteTransaction(transactionId) {
       });
   }
 }
+
+export function editTransaction(editedTransaction) {
+  return (dispatch) => {
+    return makeRequest(apiClient.editTransaction, editedTransaction)
+      .then((result) => {
+        if (result.err) {
+          alert('Error while editing this transaction');
+          dispatch({type: transactionTypes.ERROR_EDIT_TRANSACTION, payload: result.err});
+        } else {
+          dispatch({type: transactionTypes.SUCCESS_EDIT_TRANSACTION, payload: result.data})
+        }
+      })
+  }
+}

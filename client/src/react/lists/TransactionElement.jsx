@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import classnames from 'classnames';
 import { transactionActions, transViewActions } from '../../redux/actions';
 import { EditTransaction } from '../forms'
 
@@ -44,6 +45,7 @@ class ConnectedTransactionElement extends React.Component {
         </div>
       )
     }
+    
 
     return (
       <div

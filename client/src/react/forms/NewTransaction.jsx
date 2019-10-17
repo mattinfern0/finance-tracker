@@ -16,16 +16,20 @@ class ConnectedNewTransactionForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    let {rawDate} = this.state;
+    if (!rawDate) {
+      rawDate = moment().format();
+    }
     const newTransaction = {
       title: this.state.title,
       amount: parseFloat(parseFloat(this.state.amount).toFixed(2)),
-      date: moment(this.state.date).format('YYYY-MM-DD'),
+      date: moment(rawDate).format('YYYY-MM-DD'),
     }
-    console.log('New transaction: ', newTransaction);
     if (newTransaction.title.length !== 0 
       && newTransaction.amount.length !== 0 
       && newTransaction.date.length !== 0
     ) {
+      console.log(newTransaction);
       this.props.createTransaction(newTransaction);
       this.resetForm();
     }

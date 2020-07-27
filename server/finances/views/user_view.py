@@ -40,7 +40,7 @@ def loginUser(request):
     if not currentUser:
         return Response(
             {'message': 'Invalid credentials'},
-            status=HTTP_404_NOT_FOUND
+            status=HTTP_401_UNAUTHORIZED
         )
     else:
         login(request, currentUser)

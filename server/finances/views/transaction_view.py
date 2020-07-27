@@ -23,7 +23,28 @@ class TransactionViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         print("Getting transacitions")
         userId = self.request.session.get('user_id')
-        return Transaction.objects.all().filter(user=userId)
+
+        title = self.request.query_params.get('title', None)
+        amount_min = self.request.query_params.get('amount-min', None)
+        amount_max = self.request.query_params.get('amount-max', None)
+        month = self.request.query_params.get('month', None)
+        year = self.request.query_params.get('year', None)
+
+        print(f"User Id: {userId}")
+        print(f"Month: {month}")
+        print(f"Year: {year}")
+
+        result = Transaction.objects.all().filter(user=userId)
+
+
+        # Allows filtering by month+year and year only
+        if year is not None:
+            result = result.filter(date__year=year)
+
+            if month is not None:
+                result = result.filter(date__month=month)
+
+        return result
 
     def create(self, request):
         data = request.data

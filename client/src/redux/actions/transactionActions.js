@@ -2,9 +2,9 @@ import { transactionTypes } from '../constants';
 import { apiClient } from '../../api';
 import { makeRequest } from '../../utils';
 
-export function getTransactions(){
+export function getTransactions(filter={}){
   return (dispatch) => {
-    return makeRequest(apiClient.getTransactions)
+    return makeRequest(apiClient.getTransactions, filter)
       .then((result) => {
         if (result.err){
           dispatch({type: transactionTypes.ERROR_GET_TRANSACTIONS, payload: result.err});

@@ -41,7 +41,8 @@ class TransactionViewSet(viewsets.ModelViewSet):
         if year is not None:
             result = result.filter(date__year=year)
 
-            if month is not None:
+            # month == -1 means don't filter for month
+            if month is not None and month != '-1':
                 result = result.filter(date__month=month)
 
         return result

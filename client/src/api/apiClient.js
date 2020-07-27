@@ -73,8 +73,13 @@ export async function logout() {
   return await processResponse(res);
 }
 
-export async function getTransactions() {
-  const url = `${BACKEND_URL}/transactions/`;
+export async function getTransactions(filter={}) {
+  let params = new URLSearchParams();
+  for (let key in filter) {
+    params.append(key, filter[key]);
+  }
+
+  const url = `${BACKEND_URL}/transactions/?${params.toString()}`;
   const res = await fetch(url, {
     method: 'GET',
     credentials: 'include',

@@ -6,6 +6,12 @@ export function changeSortMethod(sortFunc) {
   }
 }
 
+export function changeFilter(filter) {
+  return (dispatch) => {
+    
+  }
+}
+
 export function editingOn() {
   return (dispatch) => {
     dispatch({type: transViewTypes.EDITING_ON});

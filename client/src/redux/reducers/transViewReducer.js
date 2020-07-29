@@ -5,6 +5,9 @@ const initialState = {
   sortFunc: sortFuncs.DEFAULT,
   editing: false,
   error: null,
+
+  filterMonth: -1,
+  filterYear: -1
 }
 
 export default function transViewReducer(state=initialState, action) {
@@ -23,6 +26,13 @@ export default function transViewReducer(state=initialState, action) {
       return changeState(state, {
         editing: false
       })
+
+    case transViewTypes.CHANGE_FILTER:
+      let newFilter = action.payload;
+      return changeState({
+        filterMonth: newFilter.month,
+        filterYear: newFilter.year
+      });
 
     default:
       return state;

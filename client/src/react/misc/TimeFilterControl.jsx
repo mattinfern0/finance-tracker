@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import {transactionActions} from '../../redux/actions';
+import {transactionActions, transViewActions} from '../../redux/actions';
 
 const monthNames = [
   'January',
@@ -20,15 +20,17 @@ const monthNames = [
 
 class ConnectedTimeFilterControl extends React.Component {
   constructor(props) {
+    console.log("TimeFilterControl constructing")
     super(props);
 
     let today = new Date();
     let currentMonth = today.getMonth() + 1;
     let currentYear = today.getFullYear();
+   
 
 
     this.state = {
-        month: currentMonth,
+        monthValue: currentMonth,
         year: currentYear,
         yearValue: currentYear.toString(),
         monthDisabled: false // Dsiable if there is no year filter
@@ -63,12 +65,12 @@ class ConnectedTimeFilterControl extends React.Component {
         });
 
         newFilter.year = parseInt(newValue);
-        if (this.state.month !== 0) {
-          newFilter.month = this.state.month;
+        if (this.state.monthValue !== 0) {
+          newFilter.month = this.state.monthValue;
         }
 
         console.log(newFilter);
-        this.props.getTransactions(newFilter);
+        this.props.changeFilter(newFilter);
       }
 
      
@@ -91,7 +93,7 @@ class ConnectedTimeFilterControl extends React.Component {
       newFilter.month = newValue;
     }
     console.log(newFilter);
-    this.props.getTransactions(newFilter);
+    this.props.changeFilter(newFilter);
   }
 
   render() {
@@ -121,7 +123,7 @@ class ConnectedTimeFilterControl extends React.Component {
     const today = new Date().getFullYear
     const optionNames = ['All'].concat(monthNames);
     const monthOptions = optionNames.map((name, index) => {
-      if (index===this.state.month) {
+      if (index===this.state.monthValue) {
         return (
           <option
             key={index}
@@ -147,10 +149,18 @@ class ConnectedTimeFilterControl extends React.Component {
   }
 }
 
-const mapDispatch = {
-  getTransactions: transactionActions.getTransactions,
+function mapStateToProps(state) {
+  return {
+    filterMonth: state.transView.filterMonth,
+    filterYear: state.transView.filterYear
+  }
 }
 
-const TimeFilterControl = connect(null, mapDispatch)(ConnectedTimeFilterControl);
+const mapDispatch = {
+  getTransactions: transactionActions.getTransactions,
+  changeFilter: transViewActions.changeFilter,
+}
+
+const TimeFilterControl = connect(mapStateToProps, mapDispatch)(ConnectedTimeFilterControl);
 
 export default TimeFilterControl;

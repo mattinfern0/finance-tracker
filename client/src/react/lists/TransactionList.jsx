@@ -6,7 +6,7 @@ import TransactionElement from './TransactionElement';
 class ConnectedTransactionList extends React.Component {
   componentDidMount() {
     console.log('Mounted');
-    this.props.getTransactions();
+    // this.props.getTransactions();
   }
 
   render(){

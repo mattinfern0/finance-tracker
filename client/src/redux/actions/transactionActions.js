@@ -1,9 +1,14 @@
-import { transactionTypes } from '../constants';
+import { transactionTypes, transViewTypes } from '../constants';
+import { transViewActions } from '.'
 import { apiClient } from '../../api';
 import { makeRequest } from '../../utils';
 
+import moment from 'moment';
+
 export function getTransactions(filter={}){
   return (dispatch) => {
+    console.log(`getTransactions:`);
+    console.log(filter)
     return makeRequest(apiClient.getTransactions, filter)
       .then((result) => {
         if (result.err){
@@ -11,6 +16,7 @@ export function getTransactions(filter={}){
           alert('Something went wrong while getting transactions');
         } else {
           dispatch({type: transactionTypes.SUCCESS_GET_TRANSACTIONS, payload: result.data});
+          // dispatch({type: transViewTypes.CHANGE_FILTER, payload: filter})
         }
       });
   }
@@ -25,6 +31,19 @@ export function createTransaction(newTransaction) {
           dispatch({type: transactionTypes.ERROR_CREATE_TRANSACTION, payload: result.err});
         } else {
           dispatch({type: transactionTypes.SUCCESS_CREATE_TRANSATCION, payload: result.data});
+          console.log("Result data: ");
+          console.log(result.data);
+
+          const transDate = moment(result.data.date, "YYYY-MM-DD");
+
+          
+          let newFilter = {
+            month: transDate.month() + 1,
+            year: transDate.year(),
+          }
+
+          dispatch(transViewActions.changeFilter(newFilter));
+          
         }
       })
   }

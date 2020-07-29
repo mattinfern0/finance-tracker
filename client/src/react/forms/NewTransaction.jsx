@@ -16,7 +16,7 @@ class ConnectedNewTransactionForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let {rawDate} = this.state;
+    let rawDate = this.state.date;
     if (!rawDate) {
       rawDate = moment().format();
     }

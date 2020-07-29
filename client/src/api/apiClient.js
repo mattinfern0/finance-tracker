@@ -74,9 +74,13 @@ export async function logout() {
 }
 
 export async function getTransactions(filter={}) {
+
   let params = new URLSearchParams();
   for (let key in filter) {
-    params.append(key, filter[key]);
+    // Don't add properties with value of -1 to omit them from the filter
+    if (filter[key] != -1) {
+      params.append(key, filter[key]);
+    }
   }
 
   const url = `${BACKEND_URL}/transactions/?${params.toString()}`;

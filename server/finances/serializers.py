@@ -7,7 +7,7 @@ class UserTagSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'user']
 
 class TransactionSerializer(serializers.ModelSerializer):
-    tags = UserTagSerializer(many=True)
+    tags = UserTagSerializer(many=True, read_only=True)
 
     class Meta:
         model = Transaction

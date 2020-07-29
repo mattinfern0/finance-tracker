@@ -11,6 +11,8 @@ from rest_framework.status import (
     HTTP_200_OK
 )
 
+import traceback
+
 class TransactionViewSet(viewsets.ModelViewSet):
     """ 
     Get/edit transactions
@@ -48,13 +50,20 @@ class TransactionViewSet(viewsets.ModelViewSet):
         return result
 
     def create(self, request):
+        print("Test")
         data = request.data
 
         # Insert session user id into data before validating
         data['user'] = self.request.session.get('user_id')
 
         serializer = self.get_serializer(data=data)
-        serializer.is_valid(raise_exception=True)
+        print(data)
+        try:
+            serializer.is_valid(raise_exception=True)
+        except Exception as e:
+            traceback.print_exc()
+            raise e
+        print("Is valid. Creating transaction")
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=HTTP_201_CREATED, headers=headers)

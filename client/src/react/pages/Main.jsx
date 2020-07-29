@@ -2,7 +2,7 @@ import React from 'react';
 import { TransactionsView, Sidebar } from '../layouts';
 
 import { connect } from 'react-redux';
-import { transactionActions } from '../../redux/actions';
+import { transactionActions, transViewActions } from '../../redux/actions';
 
 
 class Main extends React.Component {
@@ -15,7 +15,7 @@ class Main extends React.Component {
       year: today.getFullYear()
     };
 
-    this.props.getTransactions(newFilter);
+    this.props.changeFilter(newFilter);
 
   }
 
@@ -31,6 +31,7 @@ class Main extends React.Component {
 
 const mapDispatch = {
   getTransactions: transactionActions.getTransactions,
+  changeFilter: transViewActions.changeFilter,
 }
 
 

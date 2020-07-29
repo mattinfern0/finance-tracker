@@ -27,17 +27,17 @@ class ConnectedTimeFilterControl extends React.Component {
     let currentMonth = today.getMonth() + 1;
     let currentYear = today.getFullYear();
    
-
-
     this.state = {
-        monthValue: currentMonth,
-        year: currentYear,
-        yearValue: currentYear.toString(),
-        monthDisabled: false // Dsiable if there is no year filter
+        yearValue: -1,
+
+        monthDisabled: false, // Dsiable if there is no year filter
+        yearInputFocused: false,
+
     }
 
     this.handleYearChange = this.handleYearChange.bind(this);
     this.handleMonthChange = this.handleMonthChange.bind(this);
+    this.getYearDisplayValue = this.getYearDisplayValue.bind(this);
   }
 
   handleYearChange(e) {
@@ -47,33 +47,23 @@ class ConnectedTimeFilterControl extends React.Component {
     if (newValue.length <= 4) {
       console.log("Running")
       this.setState({yearValue: newValue});
-      let newFilter = {}
+      let newFilter = {
+        month: this.props.filterMonth
+      }
 
       const temp = moment(newValue, 'YYYY', true) // parse the value in strict mode to check if valid date
       if (newValue.length === 0) {
-        this.setState({
-          year: -1,
-          monthDisabled: true
-        });
+        this.setState({monthDisabled: true});
 
-        console.log(newFilter);
-        this.props.getTransactions(newFilter);
-      } else if (temp.isValid() && parseInt(newValue) !== this.state.year) {
-        this.setState({
-          year: newValue,
-          monthDisabled: false
-        });
+        newFilter.year = -1;
+        this.props.changeFilter(newFilter);
+      } else if (temp.isValid() && parseInt(newValue) !== this.props.filterYear) {
+        this.setState({monthDisabled: false});
 
         newFilter.year = parseInt(newValue);
-        if (this.state.monthValue !== 0) {
-          newFilter.month = this.state.monthValue;
-        }
 
-        console.log(newFilter);
         this.props.changeFilter(newFilter);
       }
-
-     
     }
   }
 
@@ -81,17 +71,17 @@ class ConnectedTimeFilterControl extends React.Component {
     console.log(this.state);
     let newValue = parseInt(e.target.value);
 
-    this.setState({month : newValue});
 
-    let newFilter = {};
-    if (this.state.year !== -1) {
-      newFilter.year = this.state.year;
-    }
+    let newFilter = {
+      year: this.props.filterYear
+    };
 
-    // Don't add the new month value to the filter if option is "All"
-    if (newValue !== 0) {
+    if (newValue === 0) {
+      newFilter.month = -1;
+    } else {
       newFilter.month = newValue;
     }
+
     console.log(newFilter);
     this.props.changeFilter(newFilter);
   }
@@ -110,8 +100,10 @@ class ConnectedTimeFilterControl extends React.Component {
           label='Year'
           placeholder='Year'
           type='number'
-          value={this.state.yearValue}
+          value={this.getYearDisplayValue()}
           onChange={this.handleYearChange}
+          onFocus={() => {this.setState({yearInputFocused : true, yearValue: this.props.filterYear})}}
+          onBlur={() => {this.setState({yearInputFocused : false})}}
         >
         </input>
         {true && <span></span>}
@@ -119,11 +111,26 @@ class ConnectedTimeFilterControl extends React.Component {
     )
   }
 
+  getYearDisplayValue() {
+    if (!this.state.yearInputFocused) {
+      const filterYear = this.props.filterYear;
+
+      // Convert -1 to empty string
+      if (filterYear === -1) {
+        return '';
+      } else {
+        return filterYear
+      }
+    } else {
+      return this.yearValue;
+    }
+  }
+
   createMonthOptions() {
     const today = new Date().getFullYear
     const optionNames = ['All'].concat(monthNames);
     const monthOptions = optionNames.map((name, index) => {
-      if (index===this.state.monthValue) {
+      if (index===this.props.filterMonth) {
         return (
           <option
             key={index}

@@ -47,13 +47,6 @@ class ConnectedNewTransactionForm extends React.Component {
     return (
       <form className="form-new-transaction" onSubmit={this.handleSubmit}>
         <input
-          type="text"
-          name="title"
-          value={this.state.title}
-          onChange={(e) => this.setState({title: e.target.value})}
-          placeholder='Description'
-        />
-        <input
           type="number"
           step="0.01"
           min="0"
@@ -61,6 +54,13 @@ class ConnectedNewTransactionForm extends React.Component {
           value={this.state.amount}
           onChange={(e) => this.setState({amount: e.target.value})}
           placeholder='Amount'
+        />
+        <input
+          type="text"
+          name="title"
+          value={this.state.title}
+          onChange={(e) => this.setState({title: e.target.value})}
+          placeholder='Description'
         />
         <input
           type="date"

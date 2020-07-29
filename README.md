@@ -1,5 +1,13 @@
 # finance-tracker
-In Development - Finance App with React front-end &amp; Django back-end
+In Development
+
+## Technologies
+#### Front-end
+- React
+- Redux
+
+#### Back-end
+- Django
 
 ## ToDo:
 #### Next Up

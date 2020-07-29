@@ -7,3 +7,9 @@ class Transaction(models.Model):
     amount = models.DecimalField(decimal_places=2, max_digits=8)
     date = models.DateField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    tags = models.ManyToManyField('UserTag', related_name='transactions', blank=True)
+
+# Defines a tag created by an individual user
+class UserTag(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50)

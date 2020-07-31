@@ -17,10 +17,12 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
 from finances.views.transaction_view import TransactionViewSet
+from finances.views.transaction_tag_view import TransactionTagViewSet
 from finances.views.user_view import UserView, loginUser, logoutUser
 
 router = routers.DefaultRouter()
 router.register(r'transactions', TransactionViewSet, basename='transactions')
+router.register(r'tags', TransactionTagViewSet, basename='tags')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

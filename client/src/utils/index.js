@@ -1,8 +1,6 @@
 import * as sortFuncs from './transactionSortFuncs';
-import Notification from './Notification';
 
 export {sortFuncs};
-export {Notification as Notification};
 
 
 

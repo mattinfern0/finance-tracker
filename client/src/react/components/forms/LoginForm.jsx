@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { userActions } from '../../redux/actions';
+import { userActions } from '../../../redux/actions';
 
 function LoginForm() {
   const [username, setUsername] = useState('');

@@ -1,7 +1,7 @@
 import React from 'react';
-import { TotalSpendings, TransactionSortControl, TimeFilterControl } from '../misc';
-import { NewTransactionForm } from '../forms';
-import { TransactionList } from '../lists';
+import { TotalSpendings, TransactionSortControl, TimeFilterControl } from '../components/misc';
+import { NewTransactionForm } from '../components/forms';
+import { TransactionList } from '../components/lists';
 
 function TransactionsView(){
   return (

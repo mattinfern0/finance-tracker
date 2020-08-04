@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { SignUpForm } from '../forms';
+import { SignUpForm } from '../components/forms';
 import { notificationActions } from '../../redux/actions'
 import {Redirect, Link} from 'react-router-dom';
 

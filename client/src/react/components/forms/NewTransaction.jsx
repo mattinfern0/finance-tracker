@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { transactionActions } from '../../redux/actions';
+import { transactionActions } from '../../../redux/actions';
 import moment from 'moment';
 
 class ConnectedNewTransactionForm extends React.Component {

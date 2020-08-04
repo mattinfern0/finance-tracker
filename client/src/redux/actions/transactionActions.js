@@ -1,7 +1,7 @@
-import { transactionTypes, transViewTypes } from '../constants';
-import { transViewActions, notificationActions } from '.';
+import { transactionTypes } from '../constants';
+import { transViewActions } from '.';
 import { apiClient } from '../../api';
-import { makeRequest, Notification } from '../../utils';
+import { makeRequest } from '../../utils';
 
 import moment from 'moment';
 import { toast } from 'react-toastify';
@@ -35,9 +35,6 @@ export function createTransaction(newTransaction) {
           console.log("Result data: ");
           console.log(result.data);
 
-          let successNotification = new Notification('success', 'Created transaction!');
-          dispatch(notificationActions.setNotification(successNotification));
-
           const transDate = moment(result.data.date, "YYYY-MM-DD");
 
           
@@ -63,8 +60,6 @@ export function deleteTransaction(transactionId) {
         } else {
           dispatch({type: transactionTypes.SUCCESS_DELETE_TRANSACTION, payload: transactionId});
 
-          let successNotification = new Notification('success', 'Deleted transaction!');
-          dispatch(notificationActions.setNotification(successNotification));
           toast.success('Deleted transaction!')
         }
       });
@@ -79,9 +74,6 @@ export function editTransaction(editedTransaction) {
           toast.error('Sorry! Something went wrong while editing this transaction!')
           dispatch({type: transactionTypes.ERROR_EDIT_TRANSACTION, payload: result.err});
         } else {
-
-          let successNotification = new Notification('success', 'Saved edits to transaction!');
-          dispatch(notificationActions.setNotification(successNotification));
 
           dispatch({type: transactionTypes.SUCCESS_EDIT_TRANSACTION, payload: result.data})
           toast.success('Saved edits to transaction!')

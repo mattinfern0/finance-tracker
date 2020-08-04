@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { connect, useDispatch } from 'react-redux';
-import { sortFuncs } from '../../utils';
-import { transViewActions } from '../../redux/actions';
+import { useDispatch } from 'react-redux';
+import { sortFuncs } from '../../../utils';
+import { transViewActions } from '../../../redux/actions';
 
 const optionInfo = [
   {name: 'Most Recent', func: sortFuncs.byNewestDate},

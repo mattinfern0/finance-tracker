@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { transactionActions, transViewActions } from '../../redux/actions';
+import { transactionActions, transViewActions } from '../../../redux/actions';
 import { EditTransaction } from '../forms'
 
 function TransactionElement(props) {

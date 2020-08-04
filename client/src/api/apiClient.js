@@ -1,5 +1,5 @@
 import store from '../redux/store'; // Need the dispatch method from here
-import { userActions, notificationActions } from '../redux/actions'
+import { userActions } from '../redux/actions'
 import { getCookie } from '../utils';
 
 

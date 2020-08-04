@@ -1,5 +1,5 @@
 import React from 'react';
-import { LoginForm } from '../forms';
+import { LoginForm } from '../components/forms';
 import { connect } from 'react-redux';
 import {Redirect, Link} from 'react-router-dom';
 import { notificationActions } from '../../redux/actions';

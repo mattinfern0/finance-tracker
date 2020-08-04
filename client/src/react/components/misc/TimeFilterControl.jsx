@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import {transactionActions, transViewActions} from '../../redux/actions';
+import {transactionActions, transViewActions} from '../../../redux/actions';
 
 const allMonthOption = 'All of'
 
@@ -23,11 +23,7 @@ const monthNames = [
 class ConnectedTimeFilterControl extends React.Component {
   constructor(props) {
     console.log("TimeFilterControl constructing")
-    super(props);
-
-    let today = new Date();
-    let currentMonth = today.getMonth() + 1;
-    let currentYear = today.getFullYear();
+    super(props);    
    
     this.state = {
         yearValue: -1,
@@ -129,7 +125,6 @@ class ConnectedTimeFilterControl extends React.Component {
   }
 
   createMonthOptions() {
-    const today = new Date().getFullYear
     const optionNames = [allMonthOption].concat(monthNames);
     const monthOptions = optionNames.map((name, index) => {
       if (index===this.props.filterMonth) {

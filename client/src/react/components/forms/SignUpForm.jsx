@@ -1,6 +1,6 @@
 import React from 'react';
 import  { connect } from 'react-redux';
-import { userActions } from '../../redux/actions';
+import { userActions } from '../../../redux/actions';
 
 class ConnectedSignUpForm extends React.Component {
   constructor(props){

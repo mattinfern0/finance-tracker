@@ -1,8 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-function ConnectedTotalSpendings(props) {
-  const total = props.transactions.reduce((total, t) => {
+function TotalSpendings() {
+  const transactions = useSelector(state => state.transactions.transactions);
+  const total = transactions.reduce((total, t) => {
     return total + t.amount;
   }, 0);
 
@@ -16,11 +17,4 @@ function ConnectedTotalSpendings(props) {
   );
 }
 
-function mapStateToProps(state) {
-  return {
-    transactions: state.transactions.transactions,
-  }
-}
-
-const TotalSpendings = connect(mapStateToProps)(ConnectedTotalSpendings);
 export default TotalSpendings;

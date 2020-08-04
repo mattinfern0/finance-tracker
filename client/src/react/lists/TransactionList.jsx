@@ -1,45 +1,29 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { transactionActions } from '../../redux/actions';
+import { useSelector } from 'react-redux';
 import TransactionElement from './TransactionElement';
 
-class ConnectedTransactionList extends React.Component {
-  componentDidMount() {
-    console.log('Mounted');
-    // this.props.getTransactions();
-  }
+function TransactionList() {
+  let transactions = useSelector(state => state.transactions.transactions);
+  const sortFunc = useSelector(state => state.transView.sortFunc);
 
-  render(){
-    const transactions = [...this.props.transactions];
-    transactions.sort(this.props.sortFunc);
-    const viewList = transactions.map((t) => {
-      return (
-        <li
-          className="element-transaction"
-          key={t.id}
-        >
-          <TransactionElement transaction={t}/>
-        </li>
-      )
-    });
+  transactions = [...transactions];
+  transactions.sort(sortFunc);
+  const viewList = transactions.map((t) => {
     return (
-      <ul>
-        {viewList}
-      </ul>    
-    );
-  }
-}
-function mapStateToProps(state) {
-  return {
-    transactions: state.transactions.transactions,
-    sortFunc: state.transView.sortFunc,
-  }
-}
+      <li
+        className="element-transaction"
+        key={t.id}
+      >
+        <TransactionElement transaction={t}/>
+      </li>
+    )
+  });
 
-const mapToDispatch = {
-  getTransactions: transactionActions.getTransactions
+  return (
+  <ul>
+    {viewList}
+  </ul>    
+  );
 }
-
-const TransactionList = connect(mapStateToProps, mapToDispatch)(ConnectedTransactionList);
 
 export default TransactionList;

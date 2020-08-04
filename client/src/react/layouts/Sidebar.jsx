@@ -5,7 +5,11 @@ export default function Sidebar(){
   return (
     <aside className="sidebar">
       <p>The Sidebar</p>
-      <Link to="/logout">Log Out</Link>
+      <ul>
+        <li><Link to="/logout">Log Out</Link></li>
+        <li>Tracker</li>
+        <li>Planner</li>
+      </ul>
     </aside>
   )
 }

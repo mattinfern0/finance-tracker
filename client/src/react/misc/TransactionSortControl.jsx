@@ -1,5 +1,5 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
+import { connect, useDispatch } from 'react-redux';
 import { sortFuncs } from '../../utils';
 import { transViewActions } from '../../redux/actions';
 
@@ -52,6 +52,40 @@ const mapToDispatch = {
   changeSortMethod: transViewActions.changeSortMethod,
 }
 
-const TransactionSortConrol = connect(null, mapToDispatch)(ConnectedTransactionSortConrol);
+const TransactionSortControl = connect(null, mapToDispatch)(ConnectedTransactionSortConrol);
 
-export default TransactionSortConrol;
+// Testing out Hooks Here
+
+function TransactionSortControlHooked() {
+  const [value, setValue] = useState(0);
+  const dispatch = useDispatch();
+
+  const onChange = (e) => {
+    const sortFunc = optionInfo[e.target.value].func;
+    console.log(sortFunc);
+    setValue(e.target.value);
+    dispatch(transViewActions.changeSortMethod(sortFunc));
+  };
+
+  const options = optionInfo.map((info, index) => {
+    return (
+      <option
+        key={index}
+        value={index}
+      >
+        {info.name}
+      </option>
+    )
+  });
+
+  return (
+    <span>
+      {'Sort By: '}
+      <select value={value} onChange={onChange}>
+        {options}
+      </select>
+    </span>
+  );
+}
+
+export default TransactionSortControlHooked;

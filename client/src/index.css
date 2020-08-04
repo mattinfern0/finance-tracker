@@ -110,7 +110,6 @@ input[type="submit"]:active, button:active{
 }
 
 .sidebar {
-    border-right: 1px solid black;
     height: 100%;
     /* width: 15%; */
     padding: 5% 5% 5% 5%;

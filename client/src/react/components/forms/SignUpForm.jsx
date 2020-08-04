@@ -1,68 +1,47 @@
-import React from 'react';
-import  { connect } from 'react-redux';
-import { userActions } from '../../../redux/actions';
+import React, { useState } from 'react';
 
-class ConnectedSignUpForm extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      username: '',
-      password: '',
-      confirmPassword: '',
-    };
-    this.doSignUp = this.doSignUp.bind(this);
-  }
+function SignUpForm(props) {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
-  doSignUp(e) {
+  const onSubmit = (e) => {
     e.preventDefault();
-    const credentials = {
-      username: this.state.username,
-      password: this.state.password,
-      confirmPassword: this.state.confirmPassword,
+    const data = {
+      username: username,
+      password: password,
+      confirmPassword: confirmPassword,
     };
-
-    if (credentials.password !== credentials.confirmPassword) {
-      this.props.signupError('Passwords don\'t match');
-    } else {
-      this.props.signup(credentials);
-    }
+    
+    props.onSubmit(data);
   }
 
-  render() {
-    return (
-      <form className="form-auth" onSubmit={this.doSignUp}>
-        <input
-          type="text"
-          value={this.state.username}
-          name="username"
-          onChange={(e) => this.setState({username: e.target.value})}
-          placeholder="Username"
-        />
-        <input
-          type="password"
-          value={this.state.password}
-          name="password"
-          onChange={(e) => this.setState({password: e.target.value})}
-          placeholder="Password"
-        />
-        <input
-          type="password"
-          value={this.state.confirmPassword}
-          name="confirm-password"
-          onChange={(e) => this.setState({confirmPassword: e.target.value})}
-          placeholder="Confirm Password"
-        />
-        <input type="submit" value="Sign Up" />
-      </form>
-    );
-  }
+  return (
+    <form className={props.className} onSubmit={onSubmit}>
+      <input
+        type="text"
+        value={username}
+        name="username"
+        onChange={(e) => setUsername(e.target.value)}
+        placeholder="Username"
+      />
+      <input
+        type="password"
+        value={password}
+        name="password"
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="Password"
+      />
+      <input
+        type="password"
+        value={confirmPassword}
+        name="confirm-password"
+        onChange={(e) => setConfirmPassword(e.target.value)}
+        placeholder="Confirm Password"
+      />
+      <input type="submit" value="Sign Up" />
+    </form>
+  );
 }
-
-const mapDispatch = {
-  signup: userActions.signup,
-  signupError: userActions.signupError,
-}
-
-const SignUpForm = connect(null, mapDispatch)(ConnectedSignUpForm);
 
 export default SignUpForm;

@@ -1,30 +1,27 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { userActions } from '../../../redux/actions';
 
-function LoginForm() {
+function LoginForm(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
 
   const resetForm = () => {
     setUsername('');
     setPassword('');
   }
 
-  const handleSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    const credentials = {
+    const data = {
       username: username,
       password: password,
     }
 
-    dispatch(userActions.login(credentials));
+    props.onSubmit(data);
     resetForm();
   }
 
   return (
-    <form className="form-auth" onSubmit={handleSubmit}>
+    <form className={props.className} onSubmit={onSubmit}>
       <input
         type="text"
         value={username}

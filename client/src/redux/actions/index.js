@@ -1,11 +1,11 @@
 import * as userActions from './userActions';
-import * as errorActions from './errorActions'
+import * as notificationActions from '././notificationActions'
 import * as transactionActions from './transactionActions';
 import * as transViewActions from './transViewActions'
 
 export { 
   userActions,
-  errorActions,
+  notificationActions,
   transactionActions,
   transViewActions
 }

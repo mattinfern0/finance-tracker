@@ -1,5 +1,10 @@
 import * as sortFuncs from './transactionSortFuncs';
-export {sortFuncs}
+import Notification from './Notification';
+
+export {sortFuncs};
+export {Notification as Notification};
+
+
 
 export function changeState(currentState, changes) {
   return Object.assign({}, currentState, changes);

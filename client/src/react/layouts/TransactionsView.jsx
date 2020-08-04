@@ -7,12 +7,14 @@ function TransactionsView(){
   return (
     <section className="container-transactions">
       <TotalSpendings />
-      <span>
-        <NewTransactionForm />
-        <TransactionSortControl />
+      <div>
+        <span>From: </span>
         <TimeFilterControl />
-
-      </span>
+        <TransactionSortControl />
+      </div>
+      <div>
+        <NewTransactionForm />
+      </div>
       <TransactionList />
     </section>
   )

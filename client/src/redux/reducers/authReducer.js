@@ -1,5 +1,5 @@
 import { changeState } from '../../utils';
-import { userTypes, errorTypes } from '../constants'
+import { userTypes, notificationTypes } from '../constants'
 import { getCookie, eraseCookie } from '../../utils'; 
 
 const initialState = {
@@ -34,7 +34,7 @@ export default function authReducer(state = initialState, action) {
         errSignup: action.payload.message,
       });
 
-    case errorTypes.CLEAR_ERRORS:
+    case notificationTypes.CLEAR_ERRORS:
       return changeState(state, {
         errSignup: null,
         errLogin: null,

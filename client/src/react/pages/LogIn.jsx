@@ -2,12 +2,12 @@ import React from 'react';
 import { LoginForm } from '../forms';
 import { connect } from 'react-redux';
 import {Redirect, Link} from 'react-router-dom';
-import { errorActions } from '../../redux/actions';
+import { notificationActions } from '../../redux/actions';
 
 function ConnectedLogIn(props) {
   // Clear error message on page load
   React.useEffect(() => {
-    props.clearErrors();
+    props.clearNotification();
   }, []);
 
   if (props.loggedIn) {
@@ -40,7 +40,7 @@ function mapStateToProps(state) {
 }
 
 const mapDispatch = {
-  clearErrors: errorActions.clearErrors,
+  clearNotification: notificationActions.clearNotification,
 }
 
 const LogIn = connect(mapStateToProps, mapDispatch)(ConnectedLogIn)

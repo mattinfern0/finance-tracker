@@ -1,5 +1,5 @@
 import store from '../redux/store'; // Need the dispatch method from here
-import { userActions } from '../redux/actions'
+import { userActions, notificationActions } from '../redux/actions'
 import { getCookie } from '../utils';
 
 
@@ -78,7 +78,7 @@ export async function getTransactions(filter={}) {
   let params = new URLSearchParams();
   for (let key in filter) {
     // Don't add properties with value of -1 to omit them from the filter
-    if (filter[key] != -1) {
+    if (filter[key] !== -1) {
       params.append(key, filter[key]);
     }
   }

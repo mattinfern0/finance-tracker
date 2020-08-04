@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { SignUpForm } from '../forms';
-import { errorActions } from '../../redux/actions'
+import { notificationActions } from '../../redux/actions'
 import {Redirect, Link} from 'react-router-dom';
 
 import {} from '../../'
@@ -15,7 +15,7 @@ function mapStateToProps(state) {
 
 function ConnectedSignUp(props) {
   React.useEffect(() => {
-    props.clearErrors();
+    props.clearNotification();
   }, []);
 
   if (props.loggedIn) {
@@ -40,7 +40,7 @@ function ConnectedSignUp(props) {
 }
 
 const mapDispatch = {
-  clearErrors: errorActions.clearErrors,
+  clearNotification: notificationActions.clearNotification,
 }
 
 const SignUp = connect(mapStateToProps, mapDispatch)(ConnectedSignUp);

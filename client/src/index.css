@@ -86,21 +86,40 @@ input[type="submit"]:active, button:active{
     background-color: rgb(242, 181, 180);
 }
 
-.main-wrapper {
-    display: flex;
-    flex-direction: row;
+.wrapper-main {
+    display: grid;
     height: 100%;
+
+    grid-template-rows: 1fr 3fr;
+    grid-template-columns: 1fr 7fr;
+}
+
+.header-main {
+    grid-column-start: 1;
+    grid-column-end: 3;
+
+    background-color: white;
+    -webkit-box-shadow: 0px 3px 14px 0px rgba(0,0,0,0.32);
+    -moz-box-shadow: 0px 3px 14px 0px rgba(0,0,0,0.32);
+    box-shadow: 0px 3px 14px 0px rgba(0,0,0,0.32)
+}
+
+.logo {
+    font-size: 36px;
+    display: inline-block;
 }
 
 .sidebar {
     border-right: 1px solid black;
     height: 100%;
-    width: 15%;
+    /* width: 15%; */
+    padding: 5% 5% 5% 5%;
 }
+
 
 .container-transactions {
     padding: 10px 10px 0 10px;
-    width: 85%;
+    /* width: 85%; */
     background-color: white;
 }
 
@@ -138,6 +157,10 @@ input[type="submit"]:active, button:active{
     width: 10%;
 }
 
+.form-time-filter {
+    margin-right: 5%;
+}
+
 .transaction-title {
     width: 60%;
 }
@@ -155,4 +178,16 @@ input[type="submit"]:active, button:active{
 .form-new-transaction {
     display: inline-block;
     margin-right: 3%;
+}
+
+.Toastify__toast {
+    border-radius: 10px;
+}
+
+.Toastify__toast--success {
+    background-color: #4e8757;
+}
+
+.Toastify__toast--error {
+    background-color: #b04a4a;
 }

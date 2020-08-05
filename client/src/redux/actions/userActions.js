@@ -13,7 +13,7 @@ export function login(credentials) {
           dispatch({type: userTypes.ERROR_LOGIN, payload: payload.err});
         } else {
           dispatch({type: userTypes.SUCCESS_LOGIN, payload: payload.data});
-          getHistory().push('/')
+          getHistory().push('/tracker')
         }
       });
   }

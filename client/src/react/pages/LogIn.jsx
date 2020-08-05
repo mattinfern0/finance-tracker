@@ -22,7 +22,7 @@ function LogIn() {
 
   if (loggedIn) {
     console.log('Redirecting');
-    return <Redirect to="/" />;
+    return <Redirect to="/tracker" />;
   }
   return (
     <div className="container-login">

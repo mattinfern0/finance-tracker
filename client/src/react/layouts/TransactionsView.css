@@ -1,0 +1,30 @@
+.container-transactions {
+    background-color: white;
+}
+
+.container-transactions ul {
+    overflow-y: auto;
+    height: calc(100vh - 100px); 
+}
+
+.container-transactions li {
+    height: 7%;
+    box-sizing: border-box;
+}
+
+.container-transactions li div {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 5px;
+    border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
+}
+
+.container-transactions li div:hover {
+    background-color: lightgrey;
+}
+
+.container-view-control {
+    margin-bottom: 3%;
+}

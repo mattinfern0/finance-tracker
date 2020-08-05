@@ -9,7 +9,6 @@ function TotalSpendings() {
 
   return (
     <div>
-      <h3>Total Spendings: </h3>
       <span className="transaction-total">
         ${total.toFixed(2)}
       </span>

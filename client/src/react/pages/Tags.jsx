@@ -2,7 +2,7 @@ import React from 'react';
 
 import { MainLayout } from '../layouts';
 
-function Planner() {
+function Tags() {
   return (
       <MainLayout>
           <h1>Coming Soon!</h1>
@@ -10,4 +10,4 @@ function Planner() {
   );
 }
 
-export default Planner
+export default Tags

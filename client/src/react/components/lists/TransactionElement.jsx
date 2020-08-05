@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { transactionActions, transViewActions } from '../../../redux/actions';
 import { EditTransaction } from '../forms'
+import './TransactionElement.css';
 
 function TransactionElement(props) {
   const dispatch = useDispatch();
